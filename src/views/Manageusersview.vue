@@ -45,63 +45,64 @@
       </table>
     </div>
 
-    <!-- Add User Modal -->
-    <div v-if="showModal" class="modal-overlay" @click.self="showModal=false">
-      <div class="modal">
-        <div class="modal-header">
-          <h3>➕ เพิ่มผู้ใช้ใหม่</h3>
-          <button class="modal-close" @click="showModal=false">×</button>
-        </div>
-        <div class="modal-body">
-          <div class="form-row-2">
-            <div class="form-group">
-              <label class="form-label">ชื่อ *</label>
-              <input v-model="form.first_name" class="form-control" placeholder="ชื่อ" />
+    <teleport to="body">
+      <div v-if="showModal" class="my-modal-overlay" @click.self="showModal=false">
+        <div class="my-modal">
+          <div class="my-modal-header">
+            <h3>➕ เพิ่มผู้ใช้ใหม่</h3>
+            <button class="my-modal-close" @click="showModal=false">×</button>
+          </div>
+          <div class="my-modal-body">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">ชื่อ *</label>
+                <input v-model="form.first_name" class="form-control" placeholder="ชื่อ" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">นามสกุล *</label>
+                <input v-model="form.last_name" class="form-control" placeholder="นามสกุล" />
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">Username *</label>
+                <input v-model="form.username" class="form-control" placeholder="username" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">รหัสผ่าน *</label>
+                <input v-model="form.password" type="password" class="form-control" placeholder="password" />
+              </div>
             </div>
             <div class="form-group">
-              <label class="form-label">นามสกุล *</label>
-              <input v-model="form.last_name" class="form-control" placeholder="นามสกุล" />
+              <label class="form-label">Email *</label>
+              <input v-model="form.email" type="email" class="form-control" placeholder="email@example.com" />
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label">เบอร์โทร</label>
+                <input v-model="form.phone" class="form-control" placeholder="0812345678" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">บทบาท *</label>
+                <select v-model="form.role_id" class="form-control">
+                  <option value="1">Admin</option>
+                  <option value="2">Staff</option>
+                  <option value="3">Student</option>
+                  <option value="4">Teacher</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="form-row-2">
-            <div class="form-group">
-              <label class="form-label">Username *</label>
-              <input v-model="form.username" class="form-control" placeholder="username" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">รหัสผ่าน *</label>
-              <input v-model="form.password" type="password" class="form-control" placeholder="password" />
-            </div>
+          <div class="my-modal-footer">
+            <button @click="showModal=false" class="btn btn-outline">ยกเลิก</button>
+            <button @click="saveUser" :disabled="saving" class="btn btn-primary">
+              <span v-if="saving" class="spinner"></span>
+              <span v-else>เพิ่มผู้ใช้</span>
+            </button>
           </div>
-          <div class="form-group">
-            <label class="form-label">Email *</label>
-            <input v-model="form.email" type="email" class="form-control" placeholder="email@example.com" />
-          </div>
-          <div class="form-row-2">
-            <div class="form-group">
-              <label class="form-label">เบอร์โทร</label>
-              <input v-model="form.phone" class="form-control" placeholder="0812345678" />
-            </div>
-            <div class="form-group">
-              <label class="form-label">บทบาท *</label>
-              <select v-model="form.role_id" class="form-control">
-                <option value="1">Admin</option>
-                <option value="2">Staff</option>
-                <option value="3">Student</option>
-                <option value="4">Teacher</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button @click="showModal=false" class="btn btn-outline">ยกเลิก</button>
-          <button @click="saveUser" :disabled="saving" class="btn btn-primary">
-            <span v-if="saving" class="spinner"></span>
-            <span v-else>เพิ่มผู้ใช้</span>
-          </button>
         </div>
       </div>
-    </div>
+    </teleport>
   </div>
 </template>
 
@@ -163,4 +164,62 @@ export default {
 }
 code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
 .loading-box { padding: 40px; text-align: center; color: #94a3b8; }
+
+/* CSS สำหรับ Badge บทบาท */
+.badge {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.2;
+}
+.badge-danger { background-color: #fee2e2; color: #991b1b !important; }
+.badge-info { background-color: #e0f2fe; color: #075985 !important; }
+.badge-success { background-color: #dcfce7; color: #166534 !important; }
+.badge-warning { background-color: #fef08a; color: #854d0e !important; }
+
+/* จัดระเบียบช่องกรอกข้อมูล */
+.form-group { margin-bottom: 16px; display: flex; flex-direction: column; }
+.form-label { margin-bottom: 6px; font-weight: 500; font-size: 0.875rem; color: #334155; }
+.form-control { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; box-sizing: border-box; width: 100%; }
+.form-control:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
+</style>
+
+<style>
+/* =========================================
+   CSS สำหรับ Modal แบบใหม่ (Global)
+   ใช้ style ไม่มี scoped เพราะมีการ teleport to body
+   ========================================= */
+.my-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.my-modal {
+  background: white; border-radius: 14px;
+  width: 100%; max-width: 540px; max-height: 90vh;
+  overflow-y: auto; box-shadow: 0 25px 60px rgba(0,0,0,.3);
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.my-modal-header {
+  padding: 20px 24px 16px; border-bottom: 1px solid #e2e8f0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.my-modal-header h3  { font-size: 17px; font-weight: 700; margin: 0; color: #1e293b; }
+.my-modal-close {
+  background: none; border: none; cursor: pointer; font-size: 24px;
+  color: #64748b; width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.my-modal-close:hover { background: #f1f5f9; color: #ef4444; }
+.my-modal-body   { padding: 20px 24px; }
+.my-modal-footer {
+  padding: 16px 24px; border-top: 1px solid #e2e8f0;
+  display: flex; gap: 10px; justify-content: flex-end;
+}
 </style>
