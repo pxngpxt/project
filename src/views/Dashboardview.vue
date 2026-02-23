@@ -117,7 +117,7 @@ export default {
   methods: {
     async loadDashboard() {
       try {
-        const res = await axios.get('http://localhost/project/api_php/dashboard.php')
+        const res = await axios.get('http://localhost/project/api_php/Dashboard.php')
         if (res.data.success) {
           this.stats = res.data.data
           this.recentBookings = res.data.data.recent_bookings
@@ -138,11 +138,13 @@ export default {
     },
 
     statusBadge(s) {
-      return {
-        Pending: 'badge badge-warning', Approved: 'badge badge-success',
-        Rejected: 'badge badge-danger',  Cancelled: 'badge badge-secondary'
-      }[s] || 'badge'
-    }
+  return {
+    Pending:   'status-tag pending',
+    Approved:  'status-tag approved',
+    Rejected:  'status-tag rejected',
+    Cancelled: 'status-tag cancelled'
+  }[s] || 'status-tag'
+}
   }
 }
 </script>
@@ -200,5 +202,18 @@ export default {
 
 .loading-box, .empty-box {
   padding: 40px; text-align: center; color: #94a3b8; font-size: 14px;
+}
+.status-tag {
+  display: inline-block; padding: 5px 14px;
+  border-radius: 20px; font-size: 13px; font-weight: 700;
+}
+.status-tag.pending   { background: #ffe100; color: #713f12; border: 1.5px solid #eab308; }
+.status-tag.approved  { background: #00ff59; color: #14532d; border: 1.5px solid #22c55e; }
+.status-tag.rejected  { background: #fecaca; color: #7f1d1d; border: 1.5px solid #ef4444; }
+.status-tag.cancelled { background: #e2e8f0; color: #334155; border: 1.5px solid #94a3b8; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px; margin-bottom: 28px;
 }
 </style>

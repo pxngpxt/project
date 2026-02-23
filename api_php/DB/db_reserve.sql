@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2026 at 07:30 PM
+-- Generation Time: Feb 23, 2026 at 09:54 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,7 +45,8 @@ CREATE TABLE `bookings` (
 INSERT INTO `bookings` (`booking_id`, `user_id`, `room_id`, `start_time`, `end_time`, `purpose`, `status`, `created_at`) VALUES
 (6, 6, 1, '2026-02-23 08:30:00', '2026-02-23 12:00:00', 'ประชุม', 'Approved', '2026-02-22 17:50:13'),
 (7, 6, 1, '2026-02-23 13:00:00', '2026-02-23 16:00:00', 'ประชุม', 'Approved', '2026-02-22 17:51:25'),
-(8, 7, 1, '2026-02-23 18:00:00', '2026-02-23 20:00:00', 'ประชุม', 'Cancelled', '2026-02-22 17:53:16');
+(8, 7, 1, '2026-02-23 18:00:00', '2026-02-23 20:00:00', 'ประชุม', 'Cancelled', '2026-02-22 17:53:16'),
+(9, 6, 1, '2026-02-24 15:52:00', '2026-02-25 15:55:00', 'ประชุม', 'Pending', '2026-02-23 08:52:46');
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `facilities`
